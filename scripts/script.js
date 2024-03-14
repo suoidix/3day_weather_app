@@ -7,9 +7,6 @@ const threeDayForcast = document.getElementById('three-day-forcast');
 const tempBtn = document.getElementById('tempBtn');
 const tempToggle = document.querySelectorAll('.ToggleTemp');
 
-// searchInput.value = '';
-// weatherInfo.innerHTML = '<p>Please enter a location.</p>';
-
 // load function for default city
 getWeatherData();
 
@@ -48,7 +45,6 @@ function toggleTemperature() {
     tempToggle.forEach(toggle => {
         toggle.classList.toggle('active');
     });
-    let activeTempUnit;
     tempToggle.forEach(toggle => {
         if (toggle.classList.contains('active')) {
             tempUnit = toggle.getAttribute('value');
