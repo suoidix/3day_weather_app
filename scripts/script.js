@@ -129,14 +129,5 @@ function getWeatherData(location='new york') {
 
                     });
                 })
-                .catch(error => {
-                    console.error('Error fetching forecast data:', error);
-                    currentForcast.innerHTML = '<p>Failed to fetch forecast data. Please try again later.</p>';
-                });
         })
-        .catch(error => {
-            console.error('Error fetching current weather data:', error);
-            weatherInfo.innerHTML = '<p>Failed to fetch current weather data. Please try again later.</p>';
-            currentForcast.innerHTML = '';
-        });
 }
