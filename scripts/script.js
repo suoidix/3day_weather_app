@@ -120,7 +120,7 @@ function getWeatherData(location='new york') {
                         //set parameters for toLocaleDateString 
                         const dateParams = {
                             weekday: 'long', 
-                            timeZone: 'UTC' };
+                            timeZone: 'UTC' }; //set UTC otherwise date is day behind
                         //return the date only using toLocaleDateString method
                         const dayOfWeek = date.toLocaleDateString('en-US', dateParams);
                         console.log('toLocaleDateString:', dayOfWeek)
@@ -131,8 +131,11 @@ function getWeatherData(location='new york') {
                         minTemp = tempUnit === 'f' ? day.day.mintemp_f+"°F" : day.day.mintemp_c+"°C";
                         //create new div for each period
                         const dayForecast = document.createElement('div'); 
+                        //asign classes
                         dayForecast.classList.add('day-forecast');
+                        dayForecast.classList.add('fade-in');
                         //weather info and dayImg go in speparate dives in order to justify-content space-between
+                        
                         dayForecast.innerHTML = `
                             <div><h4>${dayOfWeek}</h4> 
                             <p>High: ${maxTemp} Low: ${minTemp}</p>
@@ -144,11 +147,13 @@ function getWeatherData(location='new york') {
                     });
                 //error handling if 3 day forecast is unavailable 
                 }).catch(() => {
+                    console.log('Three day forecast unavailable at this time.');
                     weatherInfo.innerHTML = '<p>Three day forecast unavailable at this time.</p>';
                     currentForecast.innerHTML = ''; //clear forecast div
                 });
         //error handling if input is wrong, or unable to reach servers
-        }).catch(() => {
+        }).catch((error) => {
+            console.log('Failed to get weather data for location.' +error);
             weatherInfo.innerHTML = '<p>Failed to get weather data for location.</p>';
             currentForecast.innerHTML = ''; //clear forecast div
     });
