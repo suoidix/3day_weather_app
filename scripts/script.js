@@ -68,11 +68,9 @@ console.log(tempUnit);
 function getWeatherData(location='new york') {
     //current weather
     const currentUrl = `https://api.weatherapi.com/v1/current.json?key=d9e8ad87d5d642e4a0d13230241403&q=${(location)}`;
-    console.log(currentUrl);
 
     //address must replace 'current' with 'forecast' and concat for 3 day forecast
     const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=d9e8ad87d5d642e4a0d13230241403&q=${(location)}&days=3`;
-    console.log(forecastUrl);
     //fetch url for current forecast
     fetch(currentUrl , {method: "GET"})
         //return promise
