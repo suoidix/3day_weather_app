@@ -85,22 +85,14 @@ function getWeatherData(location='new york') {
             let region = currentData.location.region;
             let country = currentData.location.country;
             //if in US do not list country
-            if (country === "United States of America") {
-                country = '';
-            } else { //if outside US list country, but not region/state
-                region = '';
-            }
+            //if outside US list country, but not region/state
+            country === "United States of America" ? country = '' : region = '';
             const condition = currentWeather.condition.text;
             const weatherImg = `<img src=${currentWeather.condition.icon}>`;
             const humidity = currentWeather.humidity;
             //check if tempUnit is 'f' or 'c'
-            if(tempUnit === 'f') {
-                temperature = currentWeather.temp_f+"°F";
-                fealsLike = currentWeather.feelslike_f+"°F";
-            } else {
-                temperature = currentWeather.temp_c+"°C";
-                fealsLike = currentWeather.feelslike_c+"°C";
-            }
+            temperature = tempUnit === 'f' ? currentWeather.temp_f + "°F" : currentWeather.temp_c + "°C";
+            fealsLike = tempUnit === 'f' ? currentWeather.feelslike_f + "°F" : currentWeather.feelslike_c + "°C";
             console.log('fetchTempUnits:', temperature)
             //clear inneHTML before getting current weather
             currentForcast.innerHTML = '';
@@ -138,13 +130,8 @@ function getWeatherData(location='new york') {
                         const dayImg = `<div class=dayImg><img src=${day.day.condition.icon}></div>`
                         const condition = day.day.condition.text;
                         //check if tempUnit is 'f' or 'c'
-                        if(tempUnit === 'f') {
-                            maxTemp = day.day.maxtemp_f+"°F";
-                            minTemp = day.day.mintemp_f+"°F";
-                        } else {
-                            maxTemp = day.day.maxtemp_c+"°C";
-                            minTemp = day.day.mintemp_c+"°C";
-                        };
+                        maxTemp = tempUnit === 'f' ? day.day.maxtemp_f+"°F" : day.day.maxtemp_c+"°C";
+                        minTemp = tempUnit === 'f' ? day.day.mintemp_f+"°F" : day.day.mintemp_c+"°C";
                         //create new div for each period
                         const dayForecast = document.createElement('div'); 
                         dayForecast.classList.add('day-forecast');
