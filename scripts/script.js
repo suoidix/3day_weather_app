@@ -56,7 +56,6 @@ function toggleTemperature() {
                 getWeatherData(location);
             } else {
                 //getWeatherData('new york'); //testing for default location
-
                 //if no location on page load, promt user for input
                 weatherInfo.innerHTML = '<p>Please enter a location.</p>';
                 currentForecast.innerHTML = '';
