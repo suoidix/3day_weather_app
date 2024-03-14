@@ -5,7 +5,8 @@ https://www.weatherapi.com
 
 # JavaScript Project
 To preview file download as zip. 
-- Or click here: 
+
+Or click here: 
 - https://suoidix.github.io/3day_weather_app/
 
 ### API key is trial version
