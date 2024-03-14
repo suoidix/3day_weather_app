@@ -3,21 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U.S. Weather Forcast</title>
+    <title>3 Day Forcast</title>
     <script src="scripts/script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>U.S. Weather App</h1>
-        <div id="search-container">
-            <input type="text" id="search-input" placeholder="Enter location...">
-            <button id="search-button">Search</button>
+    <div id="content">
+        <div id="header">
+            <div id="search-container">
+                <!--autocomplete added to end of line to clear out search field on page refresh-->
+                <input type="text" id="search-input" placeholder="Enter location..."autocomplete="off"> 
+                <button id="search-button"><img src='images/search.png' id="searchIcon"></button>
+                <button id="tempBtn">
+                    <div class="toggleContainer">
+                        <span class="ToggleTemp active" value="c">°C</span><span>/</span><span class="ToggleTemp" value="f">°F</span>
+                    </div>
+                </button>
+            </div>
         </div>
-        <div id="weather-info">
-            <p>Enter a location to search for weather information.</p>
+        <div id="container">
+            
+            <div id="weather-info">
+            </div>
+            <div id="current-forcast"></div>
+            <div id="three-day-forcast"></div>
         </div>
-        <div id="three-day-forcast"></div>
     </div>
 </body>
 </html>
