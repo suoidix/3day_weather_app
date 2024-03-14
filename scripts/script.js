@@ -2,8 +2,8 @@
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');
 const weatherInfo = document.getElementById('weather-info');
-const currentForcast = document.getElementById('current-forcast');
-const threeDayForcast = document.getElementById('three-day-forcast');
+const currentForecast = document.getElementById('current-forecast');
+const threeDayForecast = document.getElementById('three-day-forecast');
 const tempBtn = document.getElementById('tempBtn');
 const tempToggle = document.querySelectorAll('.ToggleTemp');
 
@@ -18,7 +18,7 @@ searchButton.addEventListener('click', () => {
         getWeatherData(location);
     } else {
         weatherInfo.innerHTML = '<p>Please enter a location.</p>';
-        currentForcast.innerHTML = '';
+        currentForecast.innerHTML = '';
     }
 });
 
@@ -31,7 +31,7 @@ searchInput.addEventListener('keyup', (e) => {
             getWeatherData(location);
         } else {
             weatherInfo.innerHTML = '<p>Please enter a location.</p>';
-            currentForcast.innerHTML = '';
+            currentForecast.innerHTML = '';
         }
     }
 });
@@ -59,7 +59,7 @@ function toggleTemperature() {
 
                 //if no location on page load, promt user for input
                 weatherInfo.innerHTML = '<p>Please enter a location.</p>';
-                currentForcast.innerHTML = '';
+                currentForecast.innerHTML = '';
             }
         }
     });
@@ -71,10 +71,10 @@ function getWeatherData(location='new york') {
     const currentUrl = `https://api.weatherapi.com/v1/current.json?key=d9e8ad87d5d642e4a0d13230241403&q=${(location)}`;
     console.log(currentUrl);
 
-    //address must replace 'current' with 'forecast' and concat for 3 day forcast
+    //address must replace 'current' with 'forecast' and concat for 3 day forecast
     const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=d9e8ad87d5d642e4a0d13230241403&q=${(location)}&days=3`;
     console.log(forecastUrl);
-    //fetch url for current forcast
+    //fetch url for current forecast
     fetch(currentUrl , {method: "GET"})
         //return promise
         .then(response => response.json()) //parse usable obj
@@ -95,7 +95,7 @@ function getWeatherData(location='new york') {
             fealsLike = tempUnit === 'f' ? currentWeather.feelslike_f + "°F" : currentWeather.feelslike_c + "°C";
             console.log('fetchTempUnits:', temperature)
             //clear inneHTML before getting current weather
-            currentForcast.innerHTML = '';
+            currentForecast.innerHTML = '';
             const today = document.createElement('div'); //create new div for each period
             today.classList.add('day-forecast');
             weatherInfo.innerHTML = `
@@ -106,17 +106,17 @@ function getWeatherData(location='new york') {
                         <p>Skys: ${condition}</p>
                         <p>Humidity: ${humidity}%</p>
                     `;
-            //fetch url for 3 day forcast
+            //fetch url for 3 day forecast
             fetch(forecastUrl , {method: "GET"})
                 .then(response => response.json()) //parse data obj
                 .then(forecastData => {
-                    //clear innerHTML before looping through forcast
-                    threeDayForcast.innerHTML = '';
+                    //clear innerHTML before looping through forecast
+                    threeDayForecast.innerHTML = '';
                     //get day
                     const forecast = forecastData.forecast.forecastday;
                     const h3 = document.createElement('h3'); //create new div for each period
-                    h3.innerHTML = '3 Day Forcast:'
-                    currentForcast.appendChild(h3); 
+                    h3.innerHTML = '3 Day forecast:'
+                    currentForecast.appendChild(h3); 
                     forecast.forEach(day => {
                         const date = new Date(day.date);
                         console.log('rawDate:', date)
@@ -143,16 +143,16 @@ function getWeatherData(location='new york') {
                             </div>${dayImg}
                         `;
                         //append to weatherinfo div
-                        currentForcast.appendChild(dayForecast); 
+                        currentForecast.appendChild(dayForecast); 
                     });
-                //error handling if 3 day forcast is unavailable 
+                //error handling if 3 day forecast is unavailable 
                 }).catch(() => {
-                    weatherInfo.innerHTML = '<p>Three day forcast unavailable at this time.</p>';
-                    currentForcast.innerHTML = ''; //clear forcast div
+                    weatherInfo.innerHTML = '<p>Three day forecast unavailable at this time.</p>';
+                    currentForecast.innerHTML = ''; //clear forecast div
                 });
         //error handling if input is wrong, or unable to reach servers
         }).catch(() => {
             weatherInfo.innerHTML = '<p>Failed to get weather data for location.</p>';
-            currentForcast.innerHTML = ''; //clear forcast div
+            currentForecast.innerHTML = ''; //clear forecast div
     });
 }
