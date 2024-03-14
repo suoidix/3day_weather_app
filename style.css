@@ -30,7 +30,7 @@ body {
   height: 40px;
 }
 #search-input, #tempBtn, .day-forecast, #container {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; /*all specifies that transition occurs to all properties*/
 }
 
 #search-input {
@@ -77,7 +77,6 @@ body {
   #container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "todayForecast generalForecast";
     gap: 20px;
     background-color: #ecf6ff;
     opacity: 90%;
