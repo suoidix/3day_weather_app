@@ -13,16 +13,29 @@ const tempToggle = document.querySelectorAll('.ToggleTemp');
 // load function for default city
 getWeatherData();
 
-//event listener for search
+//event listener for search button click
 searchButton.addEventListener('click', () => {
     //get search input and remove whitespace on ends
     const location = searchInput.value.trim();
-    console.log(location)
     if (location) {
         getWeatherData(location);
     } else {
         weatherInfo.innerHTML = '<p>Please enter a location.</p>';
         currentForcast.innerHTML = '';
+    }
+});
+
+//event listener for searchfield keyup on 'enter'
+searchInput.addEventListener('keyup', (e) => {
+    // if user hit enter key
+    if (e.key === 'Enter') {
+        const location = searchInput.value.trim();
+        if (location) {
+            getWeatherData(location);
+        } else {
+            weatherInfo.innerHTML = '<p>Please enter a location.</p>';
+            currentForcast.innerHTML = '';
+        }
     }
 });
 
@@ -65,7 +78,7 @@ function getWeatherData(location='new york') {
     //address must replace 'current' with 'forecast' and concat for 3 day forcast
     const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=d9e8ad87d5d642e4a0d13230241403&q=${(location)}&days=3`;
     console.log(forecastUrl);
-    //fetch url
+    //fetch url for current forcast
     fetch(currentUrl , {method: "GET"})
         //return promise
         .then(response => response.json()) //parse usable obj
@@ -105,9 +118,9 @@ function getWeatherData(location='new york') {
                         <p>Skys: ${condition}</p>
                         <p>Humidity: ${humidity}%</p>
                     `;
-            // currentForcast.appendChild(today); //append to weatherinfo div
+            //fetch url for 3 day forcast
             fetch(forecastUrl , {method: "GET"})
-                .then(response => response.json())
+                .then(response => response.json()) //parse data obj
                 .then(forecastData => {
                     //clear innerHTML before looping through forcast
                     threeDayForcast.innerHTML = '';
